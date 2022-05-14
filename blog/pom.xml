@@ -37,9 +37,10 @@
         <!-- mybatis-plus -->
         <dependency>
             <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus</artifactId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>3.5.1</version>
         </dependency>
+
         <!-- 热部署 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

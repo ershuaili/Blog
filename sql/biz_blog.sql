@@ -23,13 +23,13 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `biz_article`;
 CREATE TABLE `biz_article`  (
   `id` bigint(0) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '文章标题',
+  `title` varchar(255) DEFAULT NULL COMMENT '文章标题',
   `user_id` bigint(0) UNSIGNED NOT NULL COMMENT '用户ID',
-  `cover_image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '文章封面图片',
-  `editor_type` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '当前文章适用的编辑器类型',
+  `cover_image` varchar(255) DEFAULT NULL COMMENT '文章封面图片',
+  `editor_type` varchar(10) DEFAULT NULL COMMENT '当前文章适用编辑器类型',
   `is_markdown` tinyint(0) UNSIGNED NULL DEFAULT 1 COMMENT '是否是markdown格式',
   `content` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT '文章内容',
-  `content_md` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT 'markdown版的文章内容',
+  `content_md` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT 'markdown版文章内容',
   `top` tinyint(1) NULL DEFAULT 0 COMMENT '是否置顶',
   `type_id` bigint(0) UNSIGNED NOT NULL COMMENT '类型',
   `status` tinyint(0) UNSIGNED NULL DEFAULT NULL COMMENT '状态',
@@ -38,7 +38,7 @@ CREATE TABLE `biz_article`  (
   `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '文章简介，最多200字',
   `keywords` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '文章关键字，优化搜索',
   `comment` tinyint(0) UNSIGNED NULL DEFAULT 1 COMMENT '是否开启评论',
-  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '文章私密访问时的密钥',
+  `password` varchar(255) NULL DEFAULT NULL COMMENT '文章私密访问时密钥',
   `required_auth` tinyint(0) UNSIGNED NULL DEFAULT NULL COMMENT '该文章是否登录后才可访问',
   `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '添加时间',
   `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '更新时间',
@@ -57,7 +57,7 @@ CREATE TABLE `biz_article_look`  (
   `id` bigint(0) UNSIGNED NOT NULL AUTO_INCREMENT,
   `article_id` bigint(0) UNSIGNED NOT NULL COMMENT '文章ID',
   `user_id` bigint(0) UNSIGNED NULL DEFAULT NULL COMMENT '已登录用户ID',
-  `user_ip` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户IP',
+  `user_ip` varchar(50) DEFAULT NULL COMMENT '用户IP',
   `look_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '浏览时间',
   `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '添加时间',
   `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '更新时间',
@@ -91,13 +91,13 @@ CREATE TABLE `biz_article_tags`  (
 DROP TABLE IF EXISTS `biz_comment`;
 CREATE TABLE `biz_comment`  (
   `id` bigint(0) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `article_id` bigint(0) NULL DEFAULT NULL COMMENT '被评论的文章ID',
-  `user_id` bigint(0) UNSIGNED NULL DEFAULT NULL COMMENT '评论人的ID',
-  `pid` bigint(0) UNSIGNED NULL DEFAULT NULL COMMENT '父级评论的id',
-  `ip` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '评论时的ip',
-  `os` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '评论时的系统类型',
-  `browser` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '评论时的浏览器类型',
-  `content` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '评论的内容',
+  `article_id` bigint(0) NULL DEFAULT NULL COMMENT '被评论文章ID',
+  `user_id` bigint(0) UNSIGNED NULL DEFAULT NULL COMMENT '评论人ID',
+  `pid` bigint(0) UNSIGNED NULL DEFAULT NULL COMMENT '父级评论id',
+  `ip` varchar(64) DEFAULT NULL COMMENT '评论时ip',
+  `os` varchar(64) DEFAULT NULL COMMENT '评论时系统类型',
+  `browser` varchar(64) DEFAULT NULL COMMENT '评论时浏览器类型',
+  `content` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '评论内容',
   `support` int(0) UNSIGNED NULL DEFAULT 0 COMMENT '支持（赞）',
   `oppose` int(0) UNSIGNED NULL DEFAULT 0 COMMENT '反对（踩）',
   `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '添加时间',
@@ -116,17 +116,14 @@ DROP TABLE IF EXISTS `biz_data_change_log`;
 CREATE TABLE `biz_data_change_log`  (
   `id` bigint(0) NOT NULL COMMENT '主键',
   `change_type` bigint(0) NOT NULL COMMENT '数据变更记录类型. 0-基本数据变更, 1-状态数据变更',
-  `module_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '业务模块编号',
+  `module_code` varchar(64) NOT NULL COMMENT '业务模块编号',
   `business_id` bigint(0) NOT NULL COMMENT '业务数据主键id',
   `create_id` bigint(0) NOT NULL COMMENT '记录创建人id',
   `create_time` datetime(0) NOT NULL COMMENT '记录创建时间',
-  `data_diff` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '数据变动内容',
-  `reason` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '操作理由',
-  `remark` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '操作备注',
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `tsp_data_change_log_change_type`(`change_type`) USING BTREE,
-  INDEX `tsp_data_change_log_module_code`(`module_code`) USING BTREE,
-  INDEX `tsp_data_change_log_business_id`(`business_id`) USING BTREE
+  `data_diff` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '数据变动内容',
+  `reason` varchar(255) DEFAULT NULL COMMENT '操作理由',
+  `remark` varchar(255) DEFAULT NULL COMMENT '操作备注',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '数据变更记录' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -138,15 +135,15 @@ CREATE TABLE `biz_data_change_log`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `biz_dictionary`;
 CREATE TABLE `biz_dictionary`  (
-  `group_code` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '组编码',
-  `group_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '组名字',
-  `code` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '编码',
-  `name` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '名称',
+  `group_code` varchar(32) NOT NULL COMMENT '组编码',
+  `group_name` varchar(100) DEFAULT NULL COMMENT '组名字',
+  `code` varchar(32) NOT NULL COMMENT '编码',
+  `name` varchar(512) DEFAULT NULL COMMENT '名称',
   `order` int(0) NULL DEFAULT NULL COMMENT '排序',
-  `language` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '语言',
+  `language` varchar(8) DEFAULT NULL COMMENT '语言',
   `status` tinyint(1) NULL DEFAULT 1 COMMENT '0无效，1有效',
   `remark` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`group_code`, `code`, `language`) USING BTREE
+  PRIMARY KEY (`code`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '字典表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -163,7 +160,7 @@ CREATE TABLE `biz_like`  (
   `business_id` bigint(0) NOT NULL COMMENT '业务数据主键id',
   `user_id` bigint(0) NOT NULL COMMENT '操作用户id',
   `operation_type` tinyint(1) NULL DEFAULT NULL COMMENT '操作类型: 0-点赞，1-点踩',
-  `remark` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '操作备注',
+  `remark` varchar(255) DEFAULT NULL COMMENT '操作备注',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '点赞表' ROW_FORMAT = Dynamic;
 
@@ -218,7 +215,7 @@ CREATE TABLE `biz_type`  (
   `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '文章类型名',
   `description` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '类型介绍',
   `sort` int(0) NULL DEFAULT NULL COMMENT '排序',
-  `icon` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '图标',
+  `icon` varchar(100) DEFAULT NULL COMMENT '图标',
   `delete_flag` tinyint(1) NOT NULL DEFAULT 0 COMMENT '删除标记',
   `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '添加时间',
   `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '更新时间',
@@ -235,8 +232,8 @@ CREATE TABLE `biz_type`  (
 DROP TABLE IF EXISTS `biz_update_recorde`;
 CREATE TABLE `biz_update_recorde`  (
   `id` bigint(0) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `version` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '更新版本',
-  `description` varchar(2500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '更新记录备注',
+  `version` varchar(20) DEFAULT NULL COMMENT '更新版本',
+  `description` varchar(255) DEFAULT NULL COMMENT '更新记录备注',
   `recorde_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '项目更新时间',
   `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '添加时间',
   `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '更新时间',
@@ -255,21 +252,21 @@ CREATE TABLE `biz_user`  (
   `id` bigint(0) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '用户名',
   `nickname` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '用户昵称',
-  `mobile` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '手机号',
-  `mail` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '邮箱',
-  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '头像图片',
+  `mobile` varchar(32) DEFAULT NULL COMMENT '手机号',
+  `mail` varchar(255)  DEFAULT NULL COMMENT '邮箱',
+  `avatar` varchar(255)  DEFAULT NULL COMMENT '头像图片',
   `birthday` datetime(0) NULL DEFAULT NULL COMMENT '生日',
   `gender` tinyint(1) NULL DEFAULT NULL COMMENT '性别: 0-男，1-女',
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '密文密码',
+  `password` varchar(255) NOT NULL COMMENT '密文密码',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '注册时间',
-  `create_ip` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '注册IP',
-  `last_login_ip` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '最近登录IP',
+  `create_ip` varchar(30) DEFAULT NULL COMMENT '注册IP',
+  `last_login_ip` varchar(30) DEFAULT NULL COMMENT '最近登录IP',
   `last_login_time` datetime(0) NULL DEFAULT NULL COMMENT '最近登录时间',
   `login_count` bigint(0) NULL DEFAULT 0 COMMENT '登录次数',
   `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   `status` tinyint(1) NULL DEFAULT 1 COMMENT '用户状态: 0无效，1有效',
   `delete_flag` tinyint(1) NOT NULL DEFAULT 0 COMMENT '删除标记',
-  `language_code` varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT 'zh_CN' COMMENT '语言编号',
+  `language_code` varchar(8) DEFAULT 'zh_CN' COMMENT '语言编号',
   `remark` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '用户备注',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户信息表' ROW_FORMAT = Dynamic;
@@ -284,8 +281,8 @@ CREATE TABLE `biz_user`  (
 DROP TABLE IF EXISTS `biz_user_action_log`;
 CREATE TABLE `biz_user_action_log`  (
   `id` bigint(0) NOT NULL COMMENT '主键',
-  `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '请求链接',
-  `action_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '操作名',
+  `url` varchar(255) DEFAULT NULL COMMENT '请求链接',
+  `action_name` varchar(255) DEFAULT NULL COMMENT '操作名',
   `params` varchar(1024) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '提交内容（json）',
   `user_account_id` bigint(0) NULL DEFAULT NULL COMMENT '操作人',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '操作时间',
@@ -307,7 +304,7 @@ CREATE TABLE `biz_user_role`  (
   `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '添加时间',
   `update_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户角色表' ROW_FORMAT = Compact;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '用户角色表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of biz_user_role

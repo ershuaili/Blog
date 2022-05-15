@@ -85,11 +85,11 @@ public class User implements Serializable {
 
     @ApiModelProperty("用户状态: 0无效，1有效")
     @TableField("status")
-    @TableLogic
     private Boolean status;
 
-    @ApiModelProperty("删除标记")
+    @ApiModelProperty("删除标记: 0已删除，1未删除")
     @TableField("delete_flag")
+    @TableLogic(value = "1", delval = "0")
     private Boolean deleteFlag;
 
     @ApiModelProperty("语言编号")

@@ -19,25 +19,24 @@ public class CodeGenerator {
         //表名集合
         List<String> tables = new ArrayList<>();
         tables.add("biz_article");
-        // tables.add("biz_article_look");
-        // tables.add("biz_article_tags");
-        // tables.add("biz_comment");
-        // tables.add("biz_data_change_log");
-        // tables.add("biz_dictionary");
-        // tables.add("biz_like");
-        // tables.add("biz_role");
-        // tables.add("biz_tags");
-        // tables.add("biz_type");
-        // tables.add("biz_update_recorde");
-        // tables.add("biz_user");
-        // tables.add("biz_user_action_log");
-        // tables.add("biz_user_role");
+        tables.add("biz_article_look");
+        tables.add("biz_article_tags");
+        tables.add("biz_comment");
+        tables.add("biz_data_change_log");
+        tables.add("biz_dictionary");
+        tables.add("biz_like");
+        tables.add("biz_role");
+        tables.add("biz_tags");
+        tables.add("biz_type");
+        tables.add("biz_update_recorde");
+        tables.add("biz_user");
+        tables.add("biz_user_action_log");
+        tables.add("biz_user_role");
 
         FastAutoGenerator.create(url, username, password)
                 //全局配置
                 .globalConfig(builder -> {
-                    builder.fileOverride()   //	开启覆盖之前生成的文件
-                            .disableOpenDir()  //禁止打开输出目录
+                    builder.disableOpenDir()  //禁止打开输出目录
                             .outputDir(System.getProperty("user.dir") + "\\src\\main\\java")   //指定输出目录
                             // .author("")   //作者名
                             // .enableKotlin()      //开启 kotlin 模式

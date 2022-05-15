@@ -1,10 +1,8 @@
 package com.blog.service;
 
-import com.blog.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.springframework.web.bind.annotation.GetMapping;
+import com.blog.entity.User;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**

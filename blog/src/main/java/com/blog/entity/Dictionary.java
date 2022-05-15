@@ -26,7 +26,7 @@ public class Dictionary implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("组编码")
-    @TableId("group_code")
+    @TableField("group_code")
     private String groupCode;
 
     @ApiModelProperty("组名字")
@@ -34,7 +34,7 @@ public class Dictionary implements Serializable {
     private String groupName;
 
     @ApiModelProperty("编码")
-    @TableField("code")
+    @TableId("code")
     private String code;
 
     @ApiModelProperty("名称")

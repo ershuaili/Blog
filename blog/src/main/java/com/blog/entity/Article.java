@@ -38,7 +38,7 @@ public class Article implements Serializable {
     @TableField("cover_image")
     private String coverImage;
 
-    @ApiModelProperty("当前文章适用的编辑器类型")
+    @ApiModelProperty("当前文章适用编辑器类型")
     @TableField("editor_type")
     private String editorType;
 
@@ -50,7 +50,7 @@ public class Article implements Serializable {
     @TableField("content")
     private String content;
 
-    @ApiModelProperty("markdown版的文章内容")
+    @ApiModelProperty("markdown版文章内容")
     @TableField("content_md")
     private String contentMd;
 
@@ -87,7 +87,7 @@ public class Article implements Serializable {
     @TableField("comment")
     private Integer comment;
 
-    @ApiModelProperty("文章私密访问时的密钥")
+    @ApiModelProperty("文章私密访问时密钥")
     @TableField("password")
     private String password;
 

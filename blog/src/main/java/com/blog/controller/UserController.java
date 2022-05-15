@@ -21,7 +21,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/user")
-@Api(value = "用户的增删改查")
+@Api(value = "用户", tags = "用户")
 public class UserController {
     @Resource
     private UserService userService;
@@ -31,7 +31,7 @@ public class UserController {
      * @return 用户信息列表
      */
     @GetMapping("/queryAll")
-    @ApiOperation(value = "获取用户列表，目前没有分页")
+    @ApiOperation(value = "获取用户列表", notes = "获取用户列表", httpMethod = "GET")
     public List<User> queryAll() {
         return userService.queryAll();
     }

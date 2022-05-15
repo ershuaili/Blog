@@ -29,31 +29,31 @@ public class Comment implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty("被评论的文章ID")
+    @ApiModelProperty("被评论文章ID")
     @TableField("article_id")
     private Long articleId;
 
-    @ApiModelProperty("评论人的ID")
+    @ApiModelProperty("评论人ID")
     @TableField("user_id")
     private Long userId;
 
-    @ApiModelProperty("父级评论的id")
+    @ApiModelProperty("父级评论id")
     @TableField("pid")
     private Long pid;
 
-    @ApiModelProperty("评论时的ip")
+    @ApiModelProperty("评论时ip")
     @TableField("ip")
     private String ip;
 
-    @ApiModelProperty("评论时的系统类型")
+    @ApiModelProperty("评论时系统类型")
     @TableField("os")
     private String os;
 
-    @ApiModelProperty("评论时的浏览器类型")
+    @ApiModelProperty("评论时浏览器类型")
     @TableField("browser")
     private String browser;
 
-    @ApiModelProperty("评论的内容")
+    @ApiModelProperty("评论内容")
     @TableField("content")
     private String content;
 

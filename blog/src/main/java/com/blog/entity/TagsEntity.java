@@ -13,15 +13,15 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 标签表
+ * 标签
  * </p>
  *
- * @author
+ * @author 李二帅
  * @since 2022-05-16
  */
 @Data
 @TableName("biz_tags")
-@ApiModel(value = "TagsEntity对象", description = "标签表")
+@ApiModel(value = "TagsEntity对象", description = "标签")
 public class TagsEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -6,10 +6,10 @@ import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
- * 用户浏览记录表 Mapper 接口
+ * 用户浏览记录 Mapper 接口
  * </p>
  *
- * @author
+ * @author 李二帅
  * @since 2022-05-16
  */
 @Mapper

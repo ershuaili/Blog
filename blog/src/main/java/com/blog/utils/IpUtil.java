@@ -13,15 +13,14 @@ import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 
 /**
+ * <p>
+ * 获取用户ip工具类
+ * </p>
+ *
  * @author 委稼祥
  * @date : 2022/5/15 21:24
- * @description : 获取用户ip工具类
  */
 public class IpUtil {
-
-
-    //private static final String UNKNOWN = "unknown";
-
     protected IpUtil() {
 
     }
@@ -61,8 +60,10 @@ public class IpUtil {
         // log.info("获取客户端ip: " + ip);
         return "0:0:0:0:0:0:0:1".equals(ip) ? "127.0.0.1" : ip;
     }
+
     /**
      * 判断是否为内网
+     *
      * @param ipAddress IP地址
      * @return IP地址
      */
@@ -100,14 +101,16 @@ public class IpUtil {
     private static boolean isInner(long userIp, long begin, long end) {
         return (userIp >= begin) && (userIp <= end);
     }
+
     /**
      * 此方法调用百度AIP来查询IP所在地域(YYR)
+     *
      * @param strIp（传入的IP地址）
      * @return 地域
      */
     public static String getAddressByIp(String strIp) {
         try {
-            URL url = new URL("http://api.map.baidu.com/location/ip?ak=F454f8a5efe5e577997931cc01de3974&ip="+strIp);
+            URL url = new URL("http://api.map.baidu.com/location/ip?ak=F454f8a5efe5e577997931cc01de3974&ip=" + strIp);
             URLConnection conn = url.openConnection();
             BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
             String line;
@@ -118,12 +121,12 @@ public class IpUtil {
             reader.close();
             String ipAddr = result.toString();
             try {
-                JSONObject obj1= JSON.parseObject(ipAddr);
-                if("0".equals(obj1.get("status").toString())){
-                    JSONObject obj2= JSON.parseObject(obj1.get("content").toString());
-                    JSONObject obj3= JSON.parseObject(obj2.get("address_detail").toString());
-                    return obj3.get("province").toString()+obj3.get("city").toString();
-                }else{
+                JSONObject obj1 = JSON.parseObject(ipAddr);
+                if ("0".equals(obj1.get("status").toString())) {
+                    JSONObject obj2 = JSON.parseObject(obj1.get("content").toString());
+                    JSONObject obj3 = JSON.parseObject(obj2.get("address_detail").toString());
+                    return obj3.get("province").toString() + obj3.get("city").toString();
+                } else {
                     return "读取失败";
                 }
             } catch (JSONException e) {
@@ -143,11 +146,11 @@ public class IpUtil {
                 ip = ip.split(",")[0];
             }
 
-            if("127.0.0.1".equals(ip) || isInnerIp(ip)) {
+            if ("127.0.0.1".equals(ip) || isInnerIp(ip)) {
                 loginAddress = "局域网";
-            }else{
+            } else {
                 loginAddress = getAddressByIp(ip);
-                if("读取失败".equals(loginAddress)) {
+                if ("读取失败".equals(loginAddress)) {
                     loginAddress = null;
                 }
             }

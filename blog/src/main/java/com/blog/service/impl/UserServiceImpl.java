@@ -2,27 +2,120 @@ package com.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.blog.entity.UserEntity;
+import com.blog.enums.BusinessErrorCodes;
+import com.blog.exception.BusinessException;
 import com.blog.mapper.UserMapper;
 import com.blog.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * <p>
- * 用户信息表 服务实现类
+ * 用户信息 服务实现类
  * </p>
  *
- * @author
+ * @author 李二帅
  * @since 2022-05-16
  */
+@Slf4j
 @Service
-public class UserServiceImpl extends ServiceImpl<UserMapper, UserEntity> implements UserService {
+public class UserServiceImpl implements UserService {
+
     @Resource
     private UserMapper userMapper;
 
+    /**
+     * 用户信息新增
+     *
+     * @param param 根据需要进行传值
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void add(UserEntity param) {
+        if (userMapper.insert(param) == 0) {
+            throw new BusinessException(BusinessErrorCodes.INSERT_FAILED);
+        }
+    }
+
+    /**
+     * 用户信息修改
+     *
+     * @param param 根据需要进行传值
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateById(UserEntity param) {
+        if (userMapper.updateById(param) == 0) {
+            throw new BusinessException(BusinessErrorCodes.UPDATE_FAILED);
+        }
+    }
+
+    /**
+     * 用户信息删除(单个条目)
+     *
+     * @param id-id
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void removeById(Long id) {
+        if (userMapper.deleteById(id) == 0) {
+            throw new BusinessException(BusinessErrorCodes.DELETE_FAILED);
+        }
+    }
+
+    /**
+     * 根据id查询数据
+     *
+     * @param id id
+     * @return 查询到的数据
+     */
+    @Override
+    public UserEntity selectById(Long id) {
+        if (null == id) {
+            return null;
+        }
+        return userMapper.selectById(id);
+    }
+
+    /**
+     * 根据id查询数据
+     *
+     * @param ids id列表
+     * @return 查询到的数据
+     */
+    @Override
+    public List<UserEntity> listByIds(Collection<Long> ids) {
+        if (null == ids || 0 == ids.size()) {
+            return new ArrayList<>(0);
+        }
+
+        List<UserEntity> entities = userMapper.selectBatchIds(ids);
+        return null == entities ? new ArrayList<>(0) : entities;
+    }
+
+    /**
+     * 根据条件查询数据
+     *
+     * @param conditions 查询条件
+     * @return 查询到的数据
+     */
+    @Override
+    public List<UserEntity> listByConditions(UserEntity conditions) {
+        if (null == conditions) {
+            return new ArrayList<>(0);
+        }
+        QueryWrapper<UserEntity> queryWrapper = getConditionsByEntity(conditions);
+
+        List<UserEntity> entities = userMapper.selectList(queryWrapper);
+        return null == entities ? new ArrayList<>(0) : entities;
+    }
 
     /**
      * 构建查询 query wrapper

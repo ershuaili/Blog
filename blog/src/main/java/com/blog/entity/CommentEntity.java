@@ -13,15 +13,15 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 用户评论表
+ * 用户评论
  * </p>
  *
- * @author
+ * @author 李二帅
  * @since 2022-05-16
  */
 @Data
 @TableName("biz_comment")
-@ApiModel(value = "CommentEntity对象", description = "用户评论表")
+@ApiModel(value = "CommentEntity对象", description = "用户评论")
 public class CommentEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

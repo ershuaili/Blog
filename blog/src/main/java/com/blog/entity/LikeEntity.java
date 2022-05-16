@@ -12,15 +12,15 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 点赞表
+ * 点赞
  * </p>
  *
- * @author
+ * @author 李二帅
  * @since 2022-05-16
  */
 @Data
 @TableName("biz_like")
-@ApiModel(value = "LikeEntity对象", description = "点赞表")
+@ApiModel(value = "LikeEntity对象", description = "点赞")
 public class LikeEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

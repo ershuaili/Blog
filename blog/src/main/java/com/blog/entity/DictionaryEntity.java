@@ -11,15 +11,15 @@ import java.io.Serializable;
 
 /**
  * <p>
- * 字典表
+ * 字典
  * </p>
  *
- * @author
+ * @author 李二帅
  * @since 2022-05-16
  */
 @Data
 @TableName("biz_dictionary")
-@ApiModel(value = "DictionaryEntity对象", description = "字典表")
+@ApiModel(value = "DictionaryEntity对象", description = "字典")
 public class DictionaryEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

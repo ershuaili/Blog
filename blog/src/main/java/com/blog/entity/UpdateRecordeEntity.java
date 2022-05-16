@@ -13,15 +13,15 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 项目更新记录表
+ * 项目更新记录
  * </p>
  *
- * @author
+ * @author 李二帅
  * @since 2022-05-16
  */
 @Data
 @TableName("biz_update_recorde")
-@ApiModel(value = "UpdateRecordeEntity对象", description = "项目更新记录表")
+@ApiModel(value = "UpdateRecordeEntity对象", description = "项目更新记录")
 public class UpdateRecordeEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

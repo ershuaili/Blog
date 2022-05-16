@@ -13,15 +13,15 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 用户浏览记录表
+ * 用户浏览记录
  * </p>
  *
- * @author
+ * @author 李二帅
  * @since 2022-05-16
  */
 @Data
 @TableName("biz_article_look")
-@ApiModel(value = "ArticleLookEntity对象", description = "用户浏览记录表")
+@ApiModel(value = "ArticleLookEntity对象", description = "用户浏览记录")
 public class ArticleLookEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

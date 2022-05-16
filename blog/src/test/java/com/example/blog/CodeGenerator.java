@@ -1,11 +1,8 @@
 package com.example.blog;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
-import com.baomidou.mybatisplus.generator.config.TemplateConfig;
-import com.baomidou.mybatisplus.generator.config.TemplateType;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 
@@ -43,7 +40,7 @@ public class CodeGenerator {
                 .globalConfig(builder -> {
                     builder.disableOpenDir()  //禁止打开输出目录
                             .outputDir(System.getProperty("user.dir") + "\\src\\main\\java")   //指定输出目录
-                            .author("")   //作者名
+                            .author("李二帅")   //作者名
                             // .enableKotlin()      //开启 kotlin 模式
                             .enableSwagger()     //开启 swagger 模式
                             .dateType(DateType.TIME_PACK)   //时间策略
@@ -62,13 +59,12 @@ public class CodeGenerator {
                             .pathInfo(Collections.singletonMap(OutputFile.xml, System.getProperty("user.dir") + "\\src\\main\\resources\\mapper"));//指定xml位置
                 })
                 // 模板配置
-                .templateConfig(builder -> {
-                    builder
-                            // .disable(TemplateType.ENTITY)
-                            .entity("templates/entity.java")
-                            .serviceImpl("templates/serviceImpl.java")
-                            .controller("templates/controller.java");
-                })
+                .templateConfig(builder -> builder
+                        // .disable(TemplateType.ENTITY)
+                        .entity("templates/entity.java")
+                        .service("templates/service.java")
+                        .serviceImpl("templates/serviceImpl.java")
+                        .controller("templates/controller.java"))
                 //策略配置
                 .strategyConfig(builder -> builder.addInclude(tables)
                         .addTablePrefix("biz_")//表名前缀，配置后生成的代码不会有此前缀

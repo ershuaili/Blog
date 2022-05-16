@@ -1,4 +1,4 @@
-package com.blog.controller;
+package com.blog.controller.user;
 
 import com.blog.entity.User;
 import com.blog.service.UserService;

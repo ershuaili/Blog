@@ -2,6 +2,7 @@ package com.blog.controller;
 
 import com.blog.entity.User;
 import com.blog.service.UserService;
+import com.blog.utils.IpUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -34,6 +36,14 @@ public class UserController {
     @ApiOperation(value = "获取用户列表", notes = "获取用户列表", httpMethod = "GET")
     public List<User> queryAll() {
         return userService.queryAll();
+    }
+
+
+    @RequestMapping("/urlName")
+    public String MethodName(HttpServletRequest request){
+        String ip = IpUtil.getClientIpAddr(request);
+        String Address = IpUtil.getAddress("192.168.1.102");
+        return Address;
     }
 
 }

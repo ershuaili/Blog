@@ -40,10 +40,9 @@ public class UserController {
 
 
     @RequestMapping("/urlName")
-    public String MethodName(HttpServletRequest request){
+    public String methodName(HttpServletRequest request){
         String ip = IpUtil.getClientIpAddr(request);
-        String Address = IpUtil.getAddress("192.168.1.102");
-        return Address;
+        return IpUtil.getAddress(ip);
     }
 
 }

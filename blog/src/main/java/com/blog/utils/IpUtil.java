@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author 委稼祥
@@ -19,7 +20,7 @@ import java.net.URLConnection;
 public class IpUtil {
 
 
-    private static final String UNKNOWN = "unknown";
+    //private static final String UNKNOWN = "unknown";
 
     protected IpUtil() {
 
@@ -35,7 +36,7 @@ public class IpUtil {
 
         if (ip != null && ip.length() != 0 && !"unknown".equalsIgnoreCase(ip)) {
             // 多次反向代理后会有多个ip值，第一个ip才是真实ip
-            if (ip.indexOf(",") != -1) {
+            if (ip.contains(",")) {
                 ip = ip.split(",")[0];
             }
         }
@@ -62,23 +63,18 @@ public class IpUtil {
     }
     /**
      * 判断是否为内网
-     * @param ipAddress
-     * @return
+     * @param ipAddress IP地址
+     * @return IP地址
      */
     public static boolean isInnerIp(String ipAddress) {
-        boolean isInnerIp = false;
-        if (ipAddress.indexOf(",") != -1) {
+        boolean isInnerIp;
+        if (ipAddress.contains(",")) {
             ipAddress = ipAddress.split(",")[0];
         }
         ipAddress = ipAddress.replaceAll(",", ".").replaceAll(" ", "");
         long ipNum = getIpNum(ipAddress);
-        /**
-         * 私有IP：
-         * A类 10.0.0.0-10.255.255.255
-         * B类  172.16.0.0-172.31.255.255
-         * C类 192.168.0.0-192.168.255.255
-         当然，还有127这个网段是环回地址
-         **/
+
+        // 私有IP：A类 10.0.0.0-10.255.255.255  B类  172.16.0.0-172.31.255.255 C类 192.168.0.0-192.168.255.255 当然，还有127这个网段是环回地址
         long aBegin = getIpNum("10.0.0.0");
         long aEnd = getIpNum("10.255.255.255");
         long bBegin = getIpNum("172.16.0.0");
@@ -86,7 +82,7 @@ public class IpUtil {
         long cBegin = getIpNum("192.168.0.0");
         long cEnd = getIpNum("192.168.255.255");
         isInnerIp = isInner(ipNum, aBegin, aEnd) || isInner(ipNum, bBegin, bEnd) || isInner(ipNum, cBegin, cEnd)
-                || ipAddress.equals("127.0.0.1");
+                || "127.0.0.1".equals(ipAddress);
         return isInnerIp;
     }
 
@@ -97,8 +93,8 @@ public class IpUtil {
         long c = Integer.parseInt(ip[2]);
         long d = Integer.parseInt(ip[3]);
 
-        long ipNum = a * 256 * 256 * 256 + b * 256 * 256 + c * 256 + d;
-        return ipNum;
+        //long ipNum = a * 256 * 256 * 256 + b * 256 * 256 + c * 256 + d;
+        return a * 256 * 256 * 256 + b * 256 * 256 + c * 256 + d;
     }
 
     private static boolean isInner(long userIp, long begin, long end) {
@@ -106,16 +102,16 @@ public class IpUtil {
     }
     /**
      * 此方法调用百度AIP来查询IP所在地域(YYR)
-     * @param strIP（传入的IP地址）
-     * @return
+     * @param strIp（传入的IP地址）
+     * @return 地域
      */
-    public static String getAddressByIp(String strIP) {
+    public static String getAddressByIp(String strIp) {
         try {
-            URL url = new URL("http://api.map.baidu.com/location/ip?ak=F454f8a5efe5e577997931cc01de3974&ip="+strIP);
+            URL url = new URL("http://api.map.baidu.com/location/ip?ak=F454f8a5efe5e577997931cc01de3974&ip="+strIp);
             URLConnection conn = url.openConnection();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
-            String line = null;
-            StringBuffer result = new StringBuffer();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
+            String line;
+            StringBuilder result = new StringBuilder();
             while ((line = reader.readLine()) != null) {
                 result.append(line);
             }
@@ -141,9 +137,9 @@ public class IpUtil {
     }
 
     public static String getAddress(String ip) {
-        String loginAddress = null;
+        String loginAddress;
         try {
-            if (ip.indexOf(",") != -1) {
+            if (ip.contains(",")) {
                 ip = ip.split(",")[0];
             }
 

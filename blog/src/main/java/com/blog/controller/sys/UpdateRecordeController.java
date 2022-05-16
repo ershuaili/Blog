@@ -1,4 +1,4 @@
-package com.blog.controller;
+package com.blog.controller.sys;
 
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -13,29 +13,33 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 标签表
+ * 项目更新记录表
  * </p>
  *
- * @author 作者
- * @since 2022-05-14
+ * @author
+ * @since 2022-05-16
  */
 @Data
-@TableName("biz_tags")
-@ApiModel(value = "Tags对象", description = "标签表")
-public class Tags implements Serializable {
+@TableName("biz_update_recorde")
+@ApiModel(value = "UpdateRecordeEntity对象", description = "项目更新记录表")
+public class UpdateRecordeEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty("标签名")
-    @TableField("name")
-    private String name;
+    @ApiModelProperty("更新版本")
+    @TableField("version")
+    private String version;
 
-    @ApiModelProperty("描述")
+    @ApiModelProperty("更新记录备注")
     @TableField("description")
     private String description;
+
+    @ApiModelProperty("项目更新时间")
+    @TableField("recorde_time")
+    private LocalDateTime recordeTime;
 
     @ApiModelProperty("添加时间")
     @TableField("create_time")

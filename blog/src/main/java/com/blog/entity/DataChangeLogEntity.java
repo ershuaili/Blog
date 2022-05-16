@@ -15,13 +15,13 @@ import java.time.LocalDateTime;
  * 数据变更记录
  * </p>
  *
- * @author 作者
- * @since 2022-05-14
+ * @author
+ * @since 2022-05-16
  */
 @Data
 @TableName("biz_data_change_log")
-@ApiModel(value = "DataChangeLog对象", description = "数据变更记录")
-public class DataChangeLog implements Serializable {
+@ApiModel(value = "DataChangeLogEntity对象", description = "数据变更记录")
+public class DataChangeLogEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

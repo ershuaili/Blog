@@ -1,5 +1,6 @@
 package com.blog.controller;
 
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -8,11 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
  * 文章类型表 前端控制器
  * </p>
  *
- * @author 作者
- * @since 2022-05-14
+ * @author
+ * @since 2022-05-16
  */
 @RestController
-@RequestMapping("/type")
+@RequestMapping("/typeEntity")
+@Api(value = "文章类型表", tags = "文章类型表")
 public class TypeController {
 
 }

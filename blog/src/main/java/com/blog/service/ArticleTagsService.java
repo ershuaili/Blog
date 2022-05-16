@@ -1,16 +1,16 @@
 package com.blog.service;
 
-import com.blog.entity.ArticleTags;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.blog.entity.ArticleTagsEntity;
 
 /**
  * <p>
  * 文章标签表 服务类
  * </p>
  *
- * @author 作者
- * @since 2022-05-14
+ * @author
+ * @since 2022-05-16
  */
-public interface ArticleTagsService extends IService<ArticleTags> {
+public interface ArticleTagsService extends IService<ArticleTagsEntity> {
 
 }

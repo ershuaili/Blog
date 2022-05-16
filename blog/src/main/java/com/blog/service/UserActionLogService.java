@@ -1,16 +1,16 @@
 package com.blog.service;
 
-import com.blog.entity.UserActionLog;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.blog.entity.UserActionLogEntity;
 
 /**
  * <p>
  * 用户操作日志 服务类
  * </p>
  *
- * @author 作者
- * @since 2022-05-14
+ * @author
+ * @since 2022-05-16
  */
-public interface UserActionLogService extends IService<UserActionLog> {
+public interface UserActionLogService extends IService<UserActionLogEntity> {
 
 }

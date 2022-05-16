@@ -15,13 +15,13 @@ import java.time.LocalDateTime;
  * 用户操作日志
  * </p>
  *
- * @author 作者
- * @since 2022-05-14
+ * @author
+ * @since 2022-05-16
  */
 @Data
 @TableName("biz_user_action_log")
-@ApiModel(value = "UserActionLog对象", description = "用户操作日志")
-public class UserActionLog implements Serializable {
+@ApiModel(value = "UserActionLogEntity对象", description = "用户操作日志")
+public class UserActionLogEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

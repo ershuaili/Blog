@@ -1,16 +1,16 @@
 package com.blog.service;
 
-import com.blog.entity.DataChangeLog;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.blog.entity.DataChangeLogEntity;
 
 /**
  * <p>
  * 数据变更记录 服务类
  * </p>
  *
- * @author 作者
- * @since 2022-05-14
+ * @author
+ * @since 2022-05-16
  */
-public interface DataChangeLogService extends IService<DataChangeLog> {
+public interface DataChangeLogService extends IService<DataChangeLogEntity> {
 
 }

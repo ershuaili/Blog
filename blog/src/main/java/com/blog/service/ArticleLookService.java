@@ -1,16 +1,16 @@
 package com.blog.service;
 
-import com.blog.entity.ArticleLook;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.blog.entity.ArticleLookEntity;
 
 /**
  * <p>
  * 用户浏览记录表 服务类
  * </p>
  *
- * @author 作者
- * @since 2022-05-14
+ * @author
+ * @since 2022-05-16
  */
-public interface ArticleLookService extends IService<ArticleLook> {
+public interface ArticleLookService extends IService<ArticleLookEntity> {
 
 }

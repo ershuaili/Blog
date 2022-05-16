@@ -1,7 +1,7 @@
 package com.blog.mapper;
 
-import com.blog.entity.UserActionLog;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.blog.entity.UserActionLogEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -9,10 +9,10 @@ import org.apache.ibatis.annotations.Mapper;
  * 用户操作日志 Mapper 接口
  * </p>
  *
- * @author 作者
- * @since 2022-05-14
+ * @author
+ * @since 2022-05-16
  */
 @Mapper
-public interface UserActionLogMapper extends BaseMapper<UserActionLog> {
+public interface UserActionLogMapper extends BaseMapper<UserActionLogEntity> {
 
 }

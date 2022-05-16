@@ -1,16 +1,16 @@
 package com.blog.service;
 
-import com.blog.entity.Comment;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.blog.entity.CommentEntity;
 
 /**
  * <p>
  * 用户评论表 服务类
  * </p>
  *
- * @author 作者
- * @since 2022-05-14
+ * @author
+ * @since 2022-05-16
  */
-public interface CommentService extends IService<Comment> {
+public interface CommentService extends IService<CommentEntity> {
 
 }

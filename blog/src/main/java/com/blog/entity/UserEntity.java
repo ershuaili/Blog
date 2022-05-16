@@ -1,6 +1,9 @@
 package com.blog.entity;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -13,13 +16,13 @@ import java.time.LocalDateTime;
  * 用户信息表
  * </p>
  *
- * @author 作者
- * @since 2022-05-14
+ * @author liershuai
+ * @since 2022-05-16
  */
 @Data
 @TableName("biz_user")
-@ApiModel(value = "User对象", description = "用户信息表")
-public class User implements Serializable {
+@ApiModel(value = "UserEntity对象", description = "用户信息表")
+public class UserEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -87,9 +90,8 @@ public class User implements Serializable {
     @TableField("status")
     private Boolean status;
 
-    @ApiModelProperty("删除标记: 0有效，1删除")
+    @ApiModelProperty("删除标记")
     @TableField("delete_flag")
-    @TableLogic(value = "0", delval = "1")
     private Boolean deleteFlag;
 
     @ApiModelProperty("语言编号")

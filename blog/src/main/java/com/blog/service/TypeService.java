@@ -1,16 +1,16 @@
 package com.blog.service;
 
-import com.blog.entity.Type;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.blog.entity.TypeEntity;
 
 /**
  * <p>
  * 文章类型表 服务类
  * </p>
  *
- * @author 作者
- * @since 2022-05-14
+ * @author
+ * @since 2022-05-16
  */
-public interface TypeService extends IService<Type> {
+public interface TypeService extends IService<TypeEntity> {
 
 }

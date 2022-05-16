@@ -1,7 +1,7 @@
 package com.blog.mapper;
 
-import com.blog.entity.Article;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.blog.entity.ArticleEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -9,10 +9,10 @@ import org.apache.ibatis.annotations.Mapper;
  * 文章表 Mapper 接口
  * </p>
  *
- * @author 作者
- * @since 2022-05-14
+ * @author
+ * @since 2022-05-16
  */
 @Mapper
-public interface ArticleMapper extends BaseMapper<Article> {
+public interface ArticleMapper extends BaseMapper<ArticleEntity> {
 
 }

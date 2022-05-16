@@ -1,16 +1,16 @@
 package com.blog.service;
 
-import com.blog.entity.Like;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.blog.entity.LikeEntity;
 
 /**
  * <p>
  * 点赞表 服务类
  * </p>
  *
- * @author 作者
- * @since 2022-05-14
+ * @author
+ * @since 2022-05-16
  */
-public interface LikeService extends IService<Like> {
+public interface LikeService extends IService<LikeEntity> {
 
 }

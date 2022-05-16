@@ -16,13 +16,13 @@ import java.time.LocalDateTime;
  * 用户角色表
  * </p>
  *
- * @author 作者
- * @since 2022-05-14
+ * @author
+ * @since 2022-05-16
  */
 @Data
 @TableName("biz_user_role")
-@ApiModel(value = "UserRole对象", description = "用户角色表")
-public class UserRole implements Serializable {
+@ApiModel(value = "UserRoleEntity对象", description = "用户角色表")
+public class UserRoleEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

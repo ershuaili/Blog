@@ -13,41 +13,29 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 文章类型表
+ * 标签表
  * </p>
  *
- * @author 作者
- * @since 2022-05-14
+ * @author
+ * @since 2022-05-16
  */
 @Data
-@TableName("biz_type")
-@ApiModel(value = "Type对象", description = "文章类型表")
-public class Type implements Serializable {
+@TableName("biz_tags")
+@ApiModel(value = "TagsEntity对象", description = "标签表")
+public class TagsEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty("文章类型名")
+    @ApiModelProperty("标签名")
     @TableField("name")
     private String name;
 
-    @ApiModelProperty("类型介绍")
+    @ApiModelProperty("描述")
     @TableField("description")
     private String description;
-
-    @ApiModelProperty("排序")
-    @TableField("sort")
-    private Integer sort;
-
-    @ApiModelProperty("图标")
-    @TableField("icon")
-    private String icon;
-
-    @ApiModelProperty("删除标记")
-    @TableField("delete_flag")
-    private Boolean deleteFlag;
 
     @ApiModelProperty("添加时间")
     @TableField("create_time")

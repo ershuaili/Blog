@@ -2,7 +2,6 @@ package com.blog.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -15,13 +14,13 @@ import java.io.Serializable;
  * 字典表
  * </p>
  *
- * @author 作者
- * @since 2022-05-14
+ * @author
+ * @since 2022-05-16
  */
 @Data
 @TableName("biz_dictionary")
-@ApiModel(value = "Dictionary对象", description = "字典表")
-public class Dictionary implements Serializable {
+@ApiModel(value = "DictionaryEntity对象", description = "字典表")
+public class DictionaryEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -51,7 +50,6 @@ public class Dictionary implements Serializable {
 
     @ApiModelProperty("0无效，1有效")
     @TableField("status")
-    @TableLogic
     private Boolean status;
 
     @ApiModelProperty("备注")

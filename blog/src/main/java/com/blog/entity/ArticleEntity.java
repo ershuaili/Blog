@@ -1,6 +1,9 @@
 package com.blog.entity;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -13,13 +16,13 @@ import java.time.LocalDateTime;
  * 文章表
  * </p>
  *
- * @author 作者
- * @since 2022-05-14
+ * @author
+ * @since 2022-05-16
  */
 @Data
 @TableName("biz_article")
-@ApiModel(value = "Article对象", description = "文章表")
-public class Article implements Serializable {
+@ApiModel(value = "ArticleEntity对象", description = "文章表")
+public class ArticleEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -64,7 +67,6 @@ public class Article implements Serializable {
 
     @ApiModelProperty("状态")
     @TableField("status")
-    @TableLogic
     private Integer status;
 
     @ApiModelProperty("是否推荐")

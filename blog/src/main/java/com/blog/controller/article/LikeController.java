@@ -19,7 +19,7 @@ import javax.annotation.Resource;
  * @since 2022-05-16
  */
 @RestController
-@RequestMapping("/likeEntity")
+@RequestMapping("/like")
 @Api(tags = "点赞")
 public class LikeController {
     @Resource

@@ -19,7 +19,7 @@ import javax.annotation.Resource;
  * @since 2022-05-16
  */
 @RestController
-@RequestMapping("/typeEntity")
+@RequestMapping("/type")
 @Api(tags = "文章类型")
 public class TypeController {
     @Resource

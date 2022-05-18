@@ -19,7 +19,7 @@ import javax.annotation.Resource;
  * @since 2022-05-16
  */
 @RestController
-@RequestMapping("/articleLookEntity")
+@RequestMapping("/articleLook")
 @Api(tags = "用户浏览记录")
 public class ArticleLookController {
     @Resource

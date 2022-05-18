@@ -6,7 +6,7 @@ package com.blog.enums;
 public enum BusinessErrorCodes {
 
     /* 成功状态码 */
-    SUCCESS(1, "操作成功"),
+    SUCCESS(1, "success"),
 
     /* 默认失败状态码 */
     ERROR(2, "操作失败，未知制定错误信息"),
@@ -67,11 +67,11 @@ public enum BusinessErrorCodes {
         this.message = message;
     }
 
-    public Integer code() {
+    public Integer getCode() {
         return this.code;
     }
 
-    public String message() {
+    public String getMessage() {
         return this.message;
     }
 }

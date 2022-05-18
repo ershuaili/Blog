@@ -19,7 +19,7 @@ import javax.annotation.Resource;
  * @since 2022-05-16
  */
 @RestController
-@RequestMapping("/dictionaryEntity")
+@RequestMapping("/dictionary")
 @Api(tags = "字典")
 public class DictionaryController {
     @Resource

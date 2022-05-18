@@ -1,6 +1,8 @@
 package com.blog.service;
 
 import com.blog.entity.article.ArticleEntity;
+import com.blog.utils.PageInfo;
+import com.blog.vo.ArticleVO;
 
 import java.util.Collection;
 import java.util.List;
@@ -60,4 +62,11 @@ public interface ArticleService {
      */
     List<ArticleEntity> listByConditions(ArticleEntity conditions);
 
+    /**
+     * 分页查询文章信息列表
+     *
+     * @param param 查询条件
+     * @return 文章分页
+     */
+    PageInfo<ArticleVO> page(ArticleEntity param);
 }

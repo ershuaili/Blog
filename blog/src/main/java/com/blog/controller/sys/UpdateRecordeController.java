@@ -19,7 +19,7 @@ import javax.annotation.Resource;
  * @since 2022-05-16
  */
 @RestController
-@RequestMapping("/updateRecordeEntity")
+@RequestMapping("/updateRecorde")
 @Api(tags = "项目更新记录")
 public class UpdateRecordeController {
     @Resource

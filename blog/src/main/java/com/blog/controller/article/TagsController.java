@@ -19,7 +19,7 @@ import javax.annotation.Resource;
  * @since 2022-05-16
  */
 @RestController
-@RequestMapping("/tagsEntity")
+@RequestMapping("/tags")
 @Api(tags = "标签")
 public class TagsController {
     @Resource

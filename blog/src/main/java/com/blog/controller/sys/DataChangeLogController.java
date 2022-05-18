@@ -19,7 +19,7 @@ import javax.annotation.Resource;
  * @since 2022-05-16
  */
 @RestController
-@RequestMapping("/dataChangeLogEntity")
+@RequestMapping("/dataChangeLog")
 @Api(tags = "数据变更记录")
 public class DataChangeLogController {
     @Resource

@@ -19,7 +19,7 @@ import javax.annotation.Resource;
  * @since 2022-05-16
  */
 @RestController
-@RequestMapping("/userActionLogEntity")
+@RequestMapping("/userActionLog")
 @Api(tags = "用户操作日志")
 public class UserActionLogController {
     @Resource

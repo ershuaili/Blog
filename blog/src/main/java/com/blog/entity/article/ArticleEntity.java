@@ -4,9 +4,11 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.blog.entity.PageBaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -21,8 +23,9 @@ import java.time.LocalDateTime;
  */
 @Data
 @TableName("biz_article")
+@EqualsAndHashCode(callSuper = true)
 @ApiModel(value = "ArticleEntity对象", description = "文章")
-public class ArticleEntity implements Serializable {
+public class ArticleEntity extends PageBaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

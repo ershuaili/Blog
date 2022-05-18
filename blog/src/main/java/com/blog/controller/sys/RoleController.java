@@ -19,7 +19,7 @@ import javax.annotation.Resource;
  * @since 2022-05-16
  */
 @RestController
-@RequestMapping("/roleEntity")
+@RequestMapping("/role")
 @Api(tags = "角色")
 public class RoleController {
     @Resource

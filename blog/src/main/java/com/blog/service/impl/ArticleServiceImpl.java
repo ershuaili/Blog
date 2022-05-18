@@ -2,11 +2,15 @@ package com.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blog.entity.article.ArticleEntity;
 import com.blog.enums.BusinessErrorCodes;
 import com.blog.exception.BusinessException;
 import com.blog.mapper.ArticleMapper;
 import com.blog.service.ArticleService;
+import com.blog.utils.ConvertUtil;
+import com.blog.utils.PageInfo;
+import com.blog.vo.ArticleVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -118,6 +122,42 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     /**
+     * 分页查询文章信息列表
+     *
+     * @param param 查询条件
+     * @return 文章分页
+     */
+    @Override
+    public PageInfo<ArticleVO> page(ArticleEntity param) {
+        QueryWrapper<ArticleEntity> queryWrapper = getConditionsByEntity(param);
+        Page<ArticleEntity> page = articleMapper.selectPage(new Page<>(param.getPageNum(), param.getPageSize()), queryWrapper);
+        return convertPage(PageInfo.getPage(page));
+    }
+
+    /**
+     * entity转vo
+     *
+     * @param entityPage 分页实体
+     * @return 分页vo
+     */
+    private PageInfo<ArticleVO> convertPage(PageInfo<ArticleEntity> entityPage) {
+        if (null == entityPage) {
+            return null;
+        }
+        PageInfo<ArticleVO> voPage =
+                PageInfo.<ArticleVO>builder()
+                        .pageNum(entityPage.getPageNum())
+                        .pageSize(entityPage.getPageSize())
+                        .totalNum(entityPage.getTotalNum())
+                        .build();
+
+        if (null != entityPage.getRecords()) {
+            voPage.setRecords(ConvertUtil.convert(entityPage.getRecords(), ArticleVO.class));
+        }
+        return voPage;
+    }
+
+    /**
      * 构建查询 query wrapper
      *
      * @param param 查询条件entity
@@ -152,7 +192,7 @@ public class ArticleServiceImpl implements ArticleService {
                 .eq(param.getRecommended() != null, ArticleEntity::getRecommended, param.getRecommended())
                 // 是否原创
                 .eq(param.getOriginal() != null, ArticleEntity::getOriginal, param.getOriginal())
-                // 文章简介，最多200字
+                // 文章简介，最多二百字
                 .eq(!StringUtils.isEmpty(param.getDescription()), ArticleEntity::getDescription, param.getDescription())
                 // 文章关键字，优化搜索
                 .eq(!StringUtils.isEmpty(param.getKeywords()), ArticleEntity::getKeywords, param.getKeywords())

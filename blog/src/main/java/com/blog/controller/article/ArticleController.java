@@ -2,11 +2,11 @@ package com.blog.controller.article;
 
 import com.blog.entity.article.ArticleEntity;
 import com.blog.service.ArticleService;
+import com.blog.utils.PageInfo;
+import com.blog.vo.ArticleVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -19,7 +19,7 @@ import javax.annotation.Resource;
  * @since 2022-05-16
  */
 @RestController
-@RequestMapping("/articleEntity")
+@RequestMapping("/article")
 @Api(tags = "文章")
 public class ArticleController {
     @Resource
@@ -36,4 +36,15 @@ public class ArticleController {
         return articleService.selectById(id);
     }
 
+    /**
+     * 分页查询文章信息
+     *
+     * @param param 文章信息实体类
+     * @return 文章信息列表
+     */
+    @PostMapping("/page")
+    @ApiOperation(value = "分页查询文章信息", notes = "分页查询文章信息", httpMethod = "POST")
+    public PageInfo<ArticleVO> page(@RequestBody ArticleEntity param) {
+        return articleService.page(param);
+    }
 }

@@ -19,7 +19,7 @@ import javax.annotation.Resource;
  * @since 2022-05-16
  */
 @RestController
-@RequestMapping("/commentEntity")
+@RequestMapping("/comment")
 @Api(tags = "用户评论")
 public class CommentController {
     @Resource

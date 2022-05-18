@@ -60,4 +60,12 @@ public interface UserService {
      */
     List<UserEntity> listByConditions(UserEntity conditions);
 
+
+    /**
+     * 通过用户名查询用户
+     * @param userName 用户名
+     * @return 用户信息
+     */
+    UserEntity queryUserByNickname(String userName);
+
 }

@@ -31,12 +31,11 @@ public class PageInfo<T> implements Serializable {
     /**
      * 页码
      */
-    private Long pageNum = 1L;
-
+    private Long pageNum;
     /**
      * 每页显示长度
      */
-    private Long pageSize = 10L;
+    private Long pageSize;
     /**
      * 总的记录条数
      */

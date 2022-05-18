@@ -1,7 +1,6 @@
 package com.blog.exception;
 
 import lombok.SneakyThrows;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
@@ -18,13 +17,13 @@ public class GlobalExceptionHandler implements ResponseBodyAdvice<Object> {
 
 
     @Override
-    public boolean supports(MethodParameter returnType, @NotNull Class converterType) {
+    public boolean supports(MethodParameter returnType, Class converterType) {
         return !returnType.getGenericParameterType().equals(Result.class) && !returnType.getDeclaringClass().equals(Docket.class);
     }
 
     @SneakyThrows
     @Override
-    public Object beforeBodyWrite(Object body, @NotNull MethodParameter returnType, @NotNull MediaType mediaType, @NotNull Class selectedConverterType, ServerHttpRequest request, @NotNull ServerHttpResponse response) {
+    public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType mediaType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         if (request.getURI().getRawPath().contains("swagger") || request.getURI().getRawPath().contains("api-docs") || request.getURI().getRawPath().contains("/diagram")) {
             return body;
         } else {

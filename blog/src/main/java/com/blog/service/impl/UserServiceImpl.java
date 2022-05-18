@@ -1,5 +1,6 @@
 package com.blog.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.blog.entity.user.UserEntity;
@@ -115,6 +116,19 @@ public class UserServiceImpl implements UserService {
 
         List<UserEntity> entities = userMapper.selectList(queryWrapper);
         return null == entities ? new ArrayList<>(0) : entities;
+    }
+
+    /**
+     * 通过用户名查询用户
+     *
+     * @param userName 用户名
+     * @return 用户信息
+     */
+    @Override
+    public UserEntity queryUserByNickname(String userName) {
+        LambdaQueryWrapper<UserEntity> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(!StringUtils.isEmpty(userName), UserEntity::getName, userName);
+        return userMapper.selectOne(queryWrapper);
     }
 
     /**

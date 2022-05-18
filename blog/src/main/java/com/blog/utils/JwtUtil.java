@@ -64,7 +64,7 @@ public class JwtUtil {
      * 校验Token
      */
     public static Map<String, Object> validateToken(String token) {
-        if (token.equals("null")) {
+        if ("null".equals(token)) {
             throw new RuntimeException("login error!");
         }
         try {

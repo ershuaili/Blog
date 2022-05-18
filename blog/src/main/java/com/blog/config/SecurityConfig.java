@@ -1,8 +1,6 @@
 package com.blog.config;
 
-import com.blog.mapper.UserMapper;
 import com.blog.service.UserService;
-import com.blog.service.impl.UserServiceImpl;
 import com.blog.utils.JwtUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;

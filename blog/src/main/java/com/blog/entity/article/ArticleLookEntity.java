@@ -1,4 +1,4 @@
-package com.blog.entity;
+package com.blog.entity.article;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -13,29 +13,37 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 标签
+ * 用户浏览记录
  * </p>
  *
  * @author 李二帅
  * @since 2022-05-16
  */
 @Data
-@TableName("biz_tags")
-@ApiModel(value = "TagsEntity对象", description = "标签")
-public class TagsEntity implements Serializable {
+@TableName("biz_article_look")
+@ApiModel(value = "ArticleLookEntity对象", description = "用户浏览记录")
+public class ArticleLookEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty("标签名")
-    @TableField("name")
-    private String name;
+    @ApiModelProperty("文章ID")
+    @TableField("article_id")
+    private Long articleId;
 
-    @ApiModelProperty("描述")
-    @TableField("description")
-    private String description;
+    @ApiModelProperty("已登录用户ID")
+    @TableField("user_id")
+    private Long userId;
+
+    @ApiModelProperty("用户IP")
+    @TableField("user_ip")
+    private String userIp;
+
+    @ApiModelProperty("浏览时间")
+    @TableField("look_time")
+    private LocalDateTime lookTime;
 
     @ApiModelProperty("添加时间")
     @TableField("create_time")

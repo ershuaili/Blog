@@ -1,6 +1,6 @@
 package com.blog.controller.sys;
 
-import com.blog.entity.DictionaryEntity;
+import com.blog.entity.sys.DictionaryEntity;
 import com.blog.service.DictionaryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

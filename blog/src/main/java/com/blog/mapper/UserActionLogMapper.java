@@ -1,7 +1,7 @@
 package com.blog.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.blog.entity.UserActionLogEntity;
+import com.blog.entity.sys.UserActionLogEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

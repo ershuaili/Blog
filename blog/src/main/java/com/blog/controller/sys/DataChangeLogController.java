@@ -1,6 +1,6 @@
 package com.blog.controller.sys;
 
-import com.blog.entity.DataChangeLogEntity;
+import com.blog.entity.sys.DataChangeLogEntity;
 import com.blog.service.DataChangeLogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

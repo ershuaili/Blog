@@ -1,4 +1,4 @@
-package com.blog.entity;
+package com.blog.entity.article;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;

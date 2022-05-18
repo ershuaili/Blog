@@ -1,6 +1,6 @@
 package com.blog.controller.sys;
 
-import com.blog.entity.RoleEntity;
+import com.blog.entity.sys.RoleEntity;
 import com.blog.service.RoleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

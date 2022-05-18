@@ -2,7 +2,7 @@ package com.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.blog.entity.DataChangeLogEntity;
+import com.blog.entity.sys.DataChangeLogEntity;
 import com.blog.enums.BusinessErrorCodes;
 import com.blog.exception.BusinessException;
 import com.blog.mapper.DataChangeLogMapper;

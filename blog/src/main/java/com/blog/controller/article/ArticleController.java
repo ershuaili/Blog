@@ -1,6 +1,6 @@
 package com.blog.controller.article;
 
-import com.blog.entity.ArticleEntity;
+import com.blog.entity.article.ArticleEntity;
 import com.blog.service.ArticleService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

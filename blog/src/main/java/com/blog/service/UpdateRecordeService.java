@@ -1,6 +1,6 @@
 package com.blog.service;
 
-import com.blog.entity.UpdateRecordeEntity;
+import com.blog.entity.sys.UpdateRecordeEntity;
 
 import java.util.Collection;
 import java.util.List;

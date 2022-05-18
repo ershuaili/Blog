@@ -1,7 +1,7 @@
 package com.blog.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.blog.entity.UpdateRecordeEntity;
+import com.blog.entity.sys.UpdateRecordeEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

@@ -1,6 +1,6 @@
 package com.blog.service;
 
-import com.blog.entity.DictionaryEntity;
+import com.blog.entity.sys.DictionaryEntity;
 
 import java.util.Collection;
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.blog.service;
 
-import com.blog.entity.ArticleTagsEntity;
+import com.blog.entity.article.ArticleTagsEntity;
 
 import java.util.Collection;
 import java.util.List;

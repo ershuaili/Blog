@@ -1,6 +1,6 @@
 package com.blog.controller.user;
 
-import com.blog.entity.UserEntity;
+import com.blog.entity.user.UserEntity;
 import com.blog.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

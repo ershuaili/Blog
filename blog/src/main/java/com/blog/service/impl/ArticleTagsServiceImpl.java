@@ -1,7 +1,7 @@
 package com.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.blog.entity.ArticleTagsEntity;
+import com.blog.entity.article.ArticleTagsEntity;
 import com.blog.enums.BusinessErrorCodes;
 import com.blog.exception.BusinessException;
 import com.blog.mapper.ArticleTagsMapper;

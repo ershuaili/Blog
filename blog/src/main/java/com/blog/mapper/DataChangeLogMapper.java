@@ -1,7 +1,7 @@
 package com.blog.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.blog.entity.DataChangeLogEntity;
+import com.blog.entity.sys.DataChangeLogEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

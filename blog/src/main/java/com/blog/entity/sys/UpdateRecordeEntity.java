@@ -1,4 +1,4 @@
-package com.blog.entity;
+package com.blog.entity.sys;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -13,37 +13,33 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 用户浏览记录
+ * 项目更新记录
  * </p>
  *
  * @author 李二帅
  * @since 2022-05-16
  */
 @Data
-@TableName("biz_article_look")
-@ApiModel(value = "ArticleLookEntity对象", description = "用户浏览记录")
-public class ArticleLookEntity implements Serializable {
+@TableName("biz_update_recorde")
+@ApiModel(value = "UpdateRecordeEntity对象", description = "项目更新记录")
+public class UpdateRecordeEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    @ApiModelProperty("文章ID")
-    @TableField("article_id")
-    private Long articleId;
+    @ApiModelProperty("更新版本")
+    @TableField("version")
+    private String version;
 
-    @ApiModelProperty("已登录用户ID")
-    @TableField("user_id")
-    private Long userId;
+    @ApiModelProperty("更新记录备注")
+    @TableField("description")
+    private String description;
 
-    @ApiModelProperty("用户IP")
-    @TableField("user_ip")
-    private String userIp;
-
-    @ApiModelProperty("浏览时间")
-    @TableField("look_time")
-    private LocalDateTime lookTime;
+    @ApiModelProperty("项目更新时间")
+    @TableField("recorde_time")
+    private LocalDateTime recordeTime;
 
     @ApiModelProperty("添加时间")
     @TableField("create_time")

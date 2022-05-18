@@ -1,6 +1,6 @@
 package com.blog.controller.sys;
 
-import com.blog.entity.UpdateRecordeEntity;
+import com.blog.entity.sys.UpdateRecordeEntity;
 import com.blog.service.UpdateRecordeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

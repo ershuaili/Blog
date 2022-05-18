@@ -1,6 +1,6 @@
 package com.blog.controller.article;
 
-import com.blog.entity.TagsEntity;
+import com.blog.entity.article.TagsEntity;
 import com.blog.service.TagsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

@@ -1,6 +1,6 @@
 package com.blog.service;
 
-import com.blog.entity.TypeEntity;
+import com.blog.entity.article.TypeEntity;
 
 import java.util.Collection;
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.blog.controller.sys;
 
-import com.blog.entity.UserActionLogEntity;
+import com.blog.entity.sys.UserActionLogEntity;
 import com.blog.service.UserActionLogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

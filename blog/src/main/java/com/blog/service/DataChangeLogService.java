@@ -1,6 +1,6 @@
 package com.blog.service;
 
-import com.blog.entity.DataChangeLogEntity;
+import com.blog.entity.sys.DataChangeLogEntity;
 
 import java.util.Collection;
 import java.util.List;

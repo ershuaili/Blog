@@ -45,7 +45,7 @@ public class PageInfo<T> implements Serializable {
         PageInfo<T> pageInfo = new PageInfo<>();
         pageInfo.setPageNum(page.getCurrent());
         pageInfo.setPageSize(page.getSize());
-        pageInfo.setTotalNum(page.getTotal());
+        pageInfo.setTotalNum((long) page.getRecords().size());
         pageInfo.setRecords(page.getRecords());
         return pageInfo;
     }

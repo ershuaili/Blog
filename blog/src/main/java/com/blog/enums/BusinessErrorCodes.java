@@ -9,7 +9,7 @@ public enum BusinessErrorCodes {
     SUCCESS(1, "success"),
 
     /* 默认失败状态码 */
-    ERROR(2, "操作失败，未知制定错误信息"),
+    ERROR(2, "服务器错误"),
 
     /* 基础错误 */
     INSERT_FAILED(201, "新增错误"),

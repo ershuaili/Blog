@@ -27,7 +27,7 @@ public class UserEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty("主键")
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     @ApiModelProperty("用户名")
@@ -101,6 +101,4 @@ public class UserEntity implements Serializable {
     @ApiModelProperty("用户备注")
     @TableField("remark")
     private String remark;
-
-
 }

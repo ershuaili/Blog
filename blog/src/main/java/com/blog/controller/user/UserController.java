@@ -1,14 +1,14 @@
 package com.blog.controller.user;
 
+import com.blog.dto.UserDTO;
 import com.blog.entity.user.UserEntity;
 import com.blog.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p>
@@ -26,12 +26,24 @@ public class UserController {
     private UserService userService;
 
     /**
+     * 用户注册
+     *
+     * @param request HttpServletRequest
+     * @param user    用户实体类
+     */
+    @PostMapping("/register")
+    @ApiOperation(value = "用户注册")
+    public void register(HttpServletRequest request, UserDTO user) {
+        userService.register(request, user);
+    }
+
+    /**
      * 通过id获取用户信息 信息
      *
      * @return 用户信息 信息
      */
     @GetMapping("/selectById")
-    @ApiOperation(value = "通过id获取用户信息信息", notes = "通过id获取用户信息信息", httpMethod = "GET")
+    @ApiOperation(value = "通过id获取用户信息信息")
     public UserEntity selectById(Long id) {
         return userService.selectById(id);
     }

@@ -28,7 +28,7 @@ public enum BusinessErrorCodes {
     USER_LOGIN_ERROR(20002, "账号不存在或密码错误"),
     USER_ACCOUNT_FORBIDDEN(20003, "账号已被禁用"),
     USER_NOT_EXIST(20004, "用户不存在"),
-    USER_HAS_EXISTED(20005, "用户已存在"),
+    USER_MAIL_HAS_EXISTED(20005, "用户邮箱已存在"),
     USER_NOT_EMPTY(20006, "用户名不能为空"),
     USER_MUST_BE_IS_NUMBER_AND_LETTER(20007, "密码只能为数字或者字母"),
     USER_BATCH_DELETE_ERROR(20008, "批量删除报错"),

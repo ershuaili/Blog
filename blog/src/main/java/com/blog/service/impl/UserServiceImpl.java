@@ -3,16 +3,21 @@ package com.blog.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.blog.dto.UserDTO;
 import com.blog.entity.user.UserEntity;
 import com.blog.enums.BusinessErrorCodes;
 import com.blog.exception.BusinessException;
 import com.blog.mapper.UserMapper;
 import com.blog.service.UserService;
+import com.blog.utils.IpUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -129,6 +134,33 @@ public class UserServiceImpl implements UserService {
         LambdaQueryWrapper<UserEntity> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(!StringUtils.isEmpty(userName), UserEntity::getName, userName);
         return userMapper.selectOne(queryWrapper);
+    }
+
+    /**
+     * 用户注册
+     *
+     * @param user 用户实体类
+     */
+    @Override
+    public void register(HttpServletRequest request, UserDTO user) {
+        UserEntity userEntity = new UserEntity();
+        // 用户邮箱已存在
+        userEntity.setMail(user.getMail());
+        List<UserEntity> userEntities = this.listByConditions(userEntity);
+        if (null != userEntities) {
+            throw new BusinessException(BusinessErrorCodes.USER_MAIL_HAS_EXISTED);
+        }
+        // 用户昵称
+        userEntity.setNickname(user.getNickname());
+        // 用户密码
+        userEntity.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        // 用户头像默认地址
+        userEntity.setAvatar("http://47.96.145.7:8090/picture/user.jpg");
+        // 注册时间
+        userEntity.setCreateTime(LocalDateTime.now());
+        // 注册IP
+        userEntity.setCreateIp(IpUtil.getClientIpAddress(request));
+        userMapper.insert(userEntity);
     }
 
     /**

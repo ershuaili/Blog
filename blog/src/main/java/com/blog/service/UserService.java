@@ -1,7 +1,9 @@
 package com.blog.service;
 
+import com.blog.dto.UserDTO;
 import com.blog.entity.user.UserEntity;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 import java.util.List;
 
@@ -63,9 +65,16 @@ public interface UserService {
 
     /**
      * 通过用户名查询用户
+     *
      * @param userName 用户名
      * @return 用户信息
      */
     UserEntity queryUserByNickname(String userName);
 
+    /**
+     * 用户注册
+     *
+     * @param user 用户实体类
+     */
+    void register(HttpServletRequest request, UserDTO user);
 }

@@ -131,9 +131,6 @@ public class ArticleServiceImpl implements ArticleService {
     public PageInfo<ArticleVO> page(ArticleEntity param) {
         QueryWrapper<ArticleEntity> queryWrapper = getConditionsByEntity(param);
         Page<ArticleEntity> page = articleMapper.selectPage(new Page<>(param.getPageNum(), param.getPageSize()), queryWrapper);
-        if (page.getRecords().size() == 0) {
-            throw new BusinessException(BusinessErrorCodes.DELETE_FAILED);
-        }
         return convertPage(PageInfo.getPage(page));
     }
 

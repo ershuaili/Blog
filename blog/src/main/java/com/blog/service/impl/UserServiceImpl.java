@@ -150,8 +150,8 @@ public class UserServiceImpl implements UserService {
         if (0 != userEntities.size()) {
             throw new BusinessException(BusinessErrorCodes.USER_MAIL_HAS_EXISTED);
         }
-        // 用户昵称
-        userEntity.setNickname(user.getNickname());
+        // 用户邮箱
+        userEntity.setMail(user.getMail());
         // 用户密码
         userEntity.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         // 用户头像默认地址

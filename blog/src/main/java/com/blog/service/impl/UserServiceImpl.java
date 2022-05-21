@@ -147,7 +147,7 @@ public class UserServiceImpl implements UserService {
         // 用户邮箱已存在
         userEntity.setMail(user.getMail());
         List<UserEntity> userEntities = this.listByConditions(userEntity);
-        if (null != userEntities) {
+        if (0 != userEntities.size()) {
             throw new BusinessException(BusinessErrorCodes.USER_MAIL_HAS_EXISTED);
         }
         // 用户昵称

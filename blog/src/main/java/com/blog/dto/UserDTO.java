@@ -17,7 +17,12 @@ import lombok.Data;
 @ApiModel(value = "UserDTO对象", description = "用户注册DTO")
 public class UserDTO {
 
-    @ApiModelProperty("用户账户")
+    @ApiModelProperty("用户昵称")
+    @TableField("nickname")
+    private String nickname;
+
+
+    @ApiModelProperty("用户手机")
     @TableField("mobile")
     private String mobile;
 

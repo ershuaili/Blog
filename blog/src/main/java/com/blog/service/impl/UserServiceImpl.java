@@ -5,9 +5,11 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.blog.dto.UserDTO;
 import com.blog.entity.user.UserEntity;
+import com.blog.entity.user.UserRoleEntity;
 import com.blog.enums.BusinessErrorCodes;
 import com.blog.exception.BusinessException;
 import com.blog.mapper.UserMapper;
+import com.blog.mapper.UserRoleMapper;
 import com.blog.service.UserService;
 import com.blog.utils.IpUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +38,9 @@ public class UserServiceImpl implements UserService {
 
     @Resource
     private UserMapper userMapper;
+
+    @Resource
+    private UserRoleMapper userRoleMapper;
 
     /**
      * 用户信息新增
@@ -150,10 +155,14 @@ public class UserServiceImpl implements UserService {
         if (0 != userEntities.size()) {
             throw new BusinessException(BusinessErrorCodes.USER_MAIL_HAS_EXISTED);
         }
-        // 用户邮箱
-        userEntity.setMail(user.getMail());
+        // 用户名
+        userEntity.setName(user.getMail());
+        //用户昵称
+        userEntity.setNickname(user.getNickname());
         // 用户密码
         userEntity.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        //用户手机
+        userEntity.setMobile(user.getMobile());
         // 用户头像默认地址
         userEntity.setAvatar("http://47.96.145.7:8090/picture/user.jpg");
         // 注册时间
@@ -161,6 +170,18 @@ public class UserServiceImpl implements UserService {
         // 注册IP
         userEntity.setCreateIp(IpUtil.getClientIpAddress(request));
         userMapper.insert(userEntity);
+
+        UserRoleEntity userRoleEntity = new UserRoleEntity();
+
+        // 用户id
+        userRoleEntity.setUserId(userEntity.getId());
+        // 角色id
+        userRoleEntity.setRoleId(2L);
+        //创建时间
+        userRoleEntity.setCreateTime(LocalDateTime.now());
+
+        userRoleMapper.insert(userRoleEntity);
+
     }
 
     /**

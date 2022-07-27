@@ -1,6 +1,8 @@
 package com.blog.service;
 
 import com.blog.entity.article.CommentEntity;
+import com.blog.utils.PageInfo;
+import com.blog.vo.CommentVO;
 
 import java.util.Collection;
 import java.util.List;
@@ -60,4 +62,10 @@ public interface CommentService {
      */
     List<CommentEntity> listByConditions(CommentEntity conditions);
 
+    /**
+     * 分页获取评论信息
+     * @param param 查询参数
+     * @return 评论信息分页
+     */
+    PageInfo<CommentVO> page(CommentEntity param);
 }

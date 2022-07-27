@@ -2,11 +2,11 @@ package com.blog.controller.article;
 
 import com.blog.entity.article.CommentEntity;
 import com.blog.service.CommentService;
+import com.blog.utils.PageInfo;
+import com.blog.vo.CommentVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -36,4 +36,15 @@ public class CommentController {
         return commentService.selectById(id);
     }
 
+    /**
+     * 分页获取评论信息
+     *
+     * @param param 评论实体类
+     * @return 评论信息分页
+     */
+    @PostMapping("/page")
+    @ApiOperation(value = "分页获取评论信息", notes = "分页获取评论信息", httpMethod = "POST")
+    public PageInfo<CommentVO> page(@RequestBody CommentEntity param) {
+        return commentService.page(param);
+    }
 }

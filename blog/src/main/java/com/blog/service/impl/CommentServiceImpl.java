@@ -2,11 +2,15 @@ package com.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blog.entity.article.CommentEntity;
 import com.blog.enums.BusinessErrorCodes;
 import com.blog.exception.BusinessException;
 import com.blog.mapper.CommentMapper;
 import com.blog.service.CommentService;
+import com.blog.utils.ConvertUtils;
+import com.blog.utils.PageInfo;
+import com.blog.vo.CommentVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +19,8 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -115,6 +121,46 @@ public class CommentServiceImpl implements CommentService {
 
         List<CommentEntity> entities = commentMapper.selectList(queryWrapper);
         return null == entities ? new ArrayList<>(0) : entities;
+    }
+
+    /**
+     * 分页获取评论信息
+     *
+     * @param param 查询参数
+     * @return 评论信息分页
+     */
+    @Override
+    public PageInfo<CommentVO> page(CommentEntity param) {
+        // 根据文章id分页查询所有父评论
+        QueryWrapper<CommentEntity> queryWrapper = this.getConditionsByEntity(param);
+        queryWrapper.lambda().isNull(CommentEntity::getPid);
+        Page<CommentEntity> page = new Page<>(param.getPageNum(), param.getPageSize());
+        Page<CommentEntity> commentEntityPage = commentMapper.selectPage(page, queryWrapper);
+        // 根据父评论id查询所有子评论id
+        List<CommentEntity> commentEntityList = commentEntityPage.getRecords();
+        List<Long> parentIds = commentEntityList.stream().map(CommentEntity::getId).collect(Collectors.toList());
+        QueryWrapper<CommentEntity> wrapper = new QueryWrapper<>();
+        wrapper.lambda().in(CommentEntity::getId, parentIds);
+        List<CommentEntity> childEntityList = commentMapper.selectList(wrapper);
+
+        List<CommentVO> commentVOList = ConvertUtils.convert(commentEntityList, CommentVO.class);
+        ArrayList<CommentEntity> childCommentList = new ArrayList<>();
+        // 此处有待优化
+        for (CommentVO vo : commentVOList) {
+            for (CommentEntity entity : childEntityList) {
+                if (Objects.equals(vo.getId(), entity.getPid())) {
+                    childCommentList.add(entity);
+                }
+            }
+            vo.setChildComment(childCommentList);
+        }
+
+        return PageInfo.<CommentVO>builder()
+                .pageSize(param.getPageSize())
+                .pageNum(param.getPageNum())
+                .totalNum(commentEntityPage.getTotal())
+                .records(commentVOList)
+                .build();
     }
 
     /**

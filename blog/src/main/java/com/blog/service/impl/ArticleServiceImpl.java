@@ -8,7 +8,7 @@ import com.blog.enums.BusinessErrorCodes;
 import com.blog.exception.BusinessException;
 import com.blog.mapper.ArticleMapper;
 import com.blog.service.ArticleService;
-import com.blog.utils.ConvertUtil;
+import com.blog.utils.ConvertUtils;
 import com.blog.utils.PageInfo;
 import com.blog.vo.ArticleVO;
 import lombok.extern.slf4j.Slf4j;
@@ -152,7 +152,7 @@ public class ArticleServiceImpl implements ArticleService {
                         .build();
 
         if (null != entityPage.getRecords()) {
-            voPage.setRecords(ConvertUtil.convert(entityPage.getRecords(), ArticleVO.class));
+            voPage.setRecords(ConvertUtils.convert(entityPage.getRecords(), ArticleVO.class));
         }
         return voPage;
     }

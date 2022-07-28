@@ -19,7 +19,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -142,17 +142,12 @@ public class CommentServiceImpl implements CommentService {
         QueryWrapper<CommentEntity> wrapper = new QueryWrapper<>();
         wrapper.lambda().in(CommentEntity::getId, parentIds);
         List<CommentEntity> childEntityList = commentMapper.selectList(wrapper);
+        Map<Long, List<CommentEntity>> childMap =
+                childEntityList.stream().collect(Collectors.groupingBy(CommentEntity::getPid));
 
         List<CommentVO> commentVOList = ConvertUtils.convert(commentEntityList, CommentVO.class);
-        ArrayList<CommentEntity> childCommentList = new ArrayList<>();
-        // 此处有待优化
         for (CommentVO vo : commentVOList) {
-            for (CommentEntity entity : childEntityList) {
-                if (Objects.equals(vo.getId(), entity.getPid())) {
-                    childCommentList.add(entity);
-                }
-            }
-            vo.setChildComment(childCommentList);
+            vo.setChildComment(childMap.get(vo.getId()));
         }
 
         return PageInfo.<CommentVO>builder()

@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.blog.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -22,6 +23,7 @@ import java.time.LocalDateTime;
  * @since 2022-05-16
  */
 @Data
+@Builder
 @EqualsAndHashCode(callSuper = true)
 @TableName("biz_comment")
 @ApiModel(value = "CommentEntity对象", description = "用户评论")

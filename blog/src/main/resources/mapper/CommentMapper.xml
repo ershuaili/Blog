@@ -2,4 +2,54 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.blog.mapper.CommentMapper">
 
+    <!--DTO返回对象封装结果集-->
+<!--    <resultMap id="commentDTOMap" type="com.blog.dto.CommentDTO">-->
+<!--        <id column="id" jdbcType="BIGINT" property="comment.id"/>-->
+<!--        <result column="article_id" jdbcType="BIGINT" property="comment.articleId"/>-->
+<!--        <result column="user_id" jdbcType="BIGINT" property="comment.userId"/>-->
+<!--        <result column="pid" jdbcType="BIGINT" property="comment.pId"/>-->
+<!--        <result column="ip" jdbcType="VARCHAR" property="comment.ip"/>-->
+<!--        <result column="os" jdbcType="VARCHAR" property="comment.os"/>-->
+<!--        <result column="browser" jdbcType="VARCHAR" property="comment.browser"/>-->
+<!--        <result column="content" jdbcType="VARCHAR" property="comment.content"/>-->
+<!--        <result column="support" jdbcType="INTEGER" property="comment.support"/>-->
+<!--        <result column="oppose" jdbcType="INTEGER" property="comment.oppose"/>-->
+<!--        <result column="create_time" jdbcType="TIMESTAMP" property="comment.createTime"/>-->
+<!--        <result column="update_time" jdbcType="TIMESTAMP" property="comment.updateTime"/>-->
+<!--        <association property="children"-->
+<!--                     select="com.blog.mapper.CommentMapper.selectCommentById"-->
+<!--                     column="{articleId=article_id,pId=pid}"-->
+<!--                     fetchType="lazy">-->
+<!--        </association>-->
+<!--    </resultMap>-->
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,article_id,user_id,pid,ip,os,browser,content,support,oppose,create_time,update_time
+    </sql>
+    
+    <select id="selectCommentList" resultType="com.blog.dto.CommentDTO">
+        select
+            c.id,c.user_id,u.nickname,u.avatar,c.content,c.creat_time
+        from biz_comment c
+        join biz_user u ON c.user_id = u.id
+        where c.pid = 0
+        and c.article_id = #{articleId}
+        order by c.creat_time desc
+        limit #{current},#{size}
+    </select>
+
+<!--    <select id="selectCommentById" resultMap="commentDTOMap">-->
+<!--        SELECT-->
+<!--        <include refid="Base_Column_List"/>-->
+<!--        FROM biz_comment-->
+<!--        WHERE article_id = #{articleId}-->
+<!--        AND pid = #{pId}-->
+<!--        order by create_time desc-->
+<!--        <if test="size != null">-->
+<!--            limit #{size}-->
+<!--        </if>-->
+<!--        <if test="current != null">-->
+<!--            offset #{current}-->
+<!--        </if>-->
+<!--    </select>-->
 </mapper>

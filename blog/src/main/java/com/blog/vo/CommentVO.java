@@ -36,7 +36,7 @@ public class CommentVO extends BaseEntity {
     private Long userName;
 
     @ApiModelProperty("父评论ID")
-    private Long parentId;
+    private Long Pid;
 
     @ApiModelProperty("评论时IP")
     private String userIp;

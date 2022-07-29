@@ -1,6 +1,8 @@
 package com.blog.controller.article;
 
+import com.blog.dto.CommentDTO;
 import com.blog.entity.article.CommentEntity;
+import com.blog.exception.Result;
 import com.blog.service.CommentService;
 import com.blog.utils.PageInfo;
 import com.blog.vo.CommentVO;
@@ -25,6 +27,13 @@ public class CommentController {
     @Resource
     private CommentService commentService;
 
+    @ApiOperation(value = "添加评论")
+    @PostMapping("/add")
+    public Result<?> saveComment(@RequestBody CommentDTO commentdto){
+        commentService.saveComment(commentdto);
+        return Result.ok();
+    }
+
     /**
      * 通过id获取用户评论 信息
      *
@@ -44,7 +53,7 @@ public class CommentController {
      */
     @PostMapping("/page")
     @ApiOperation(value = "分页获取评论信息", notes = "分页获取评论信息", httpMethod = "POST")
-    public PageInfo<CommentVO> page(@RequestBody CommentEntity param) {
+    public PageInfo<CommentVO> page(@RequestBody CommentDTO param) {
         return commentService.page(param);
     }
 }

@@ -1,5 +1,6 @@
 package com.blog.service;
 
+import com.blog.dto.CommentDTO;
 import com.blog.entity.article.CommentEntity;
 import com.blog.utils.PageInfo;
 import com.blog.vo.CommentVO;
@@ -20,9 +21,9 @@ public interface CommentService {
     /**
      * 用户评论新增
      *
-     * @param param 根据需要进行传值
+     * @param commentVO 评论对象
      */
-    void add(CommentEntity param);
+    void saveComment(CommentDTO commentDTO);
 
     /**
      * 用户评论修改
@@ -67,5 +68,5 @@ public interface CommentService {
      * @param param 查询参数
      * @return 评论信息分页
      */
-    PageInfo<CommentVO> page(CommentEntity param);
+    PageInfo<CommentVO> page(CommentDTO param);
 }

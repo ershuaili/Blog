@@ -168,16 +168,14 @@ public class UserServiceImpl implements UserService {
         // 注册时间
         userEntity.setCreateTime(LocalDateTime.now());
         // 注册IP
-        userEntity.setCreateIp(IpUtil.getClientIpAddress(request));
+        userEntity.setCreateIp(IpUtil.getRealIP());
         userMapper.insert(userEntity);
 
         UserRoleEntity userRoleEntity = new UserRoleEntity();
 
-        // 用户id
+        //绑定用户角色
         userRoleEntity.setUserId(userEntity.getId());
-        // 角色id
         userRoleEntity.setRoleId(2L);
-        //创建时间
         userRoleEntity.setCreateTime(LocalDateTime.now());
 
         userRoleMapper.insert(userRoleEntity);

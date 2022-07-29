@@ -1,6 +1,8 @@
 package com.blog.controller.article;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blog.entity.article.ArticleEntity;
+import com.blog.exception.SuccessResult;
 import com.blog.service.ArticleService;
 import com.blog.utils.PageInfo;
 import com.blog.vo.ArticleVO;
@@ -47,4 +49,5 @@ public class ArticleController {
     public PageInfo<ArticleVO> page(@RequestBody ArticleEntity param) {
         return articleService.page(param);
     }
+
 }

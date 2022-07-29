@@ -4,6 +4,7 @@ import com.blog.dto.UserDTO;
 import com.blog.entity.user.UserEntity;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.UnknownHostException;
 import java.util.Collection;
 import java.util.List;
 
@@ -74,7 +75,9 @@ public interface UserService {
     /**
      * 用户注册
      *
-     * @param user 用户实体类
+     * @param request 请求
+     * @param user 用户信息
+     * @throws UnknownHostException 未知主机异常
      */
-    void register(HttpServletRequest request, UserDTO user);
+    void register(HttpServletRequest request, UserDTO user) throws UnknownHostException;
 }

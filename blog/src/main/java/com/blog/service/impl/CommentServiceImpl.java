@@ -1,8 +1,11 @@
 package com.blog.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.blog.dto.CommentDTO;
 import com.blog.entity.article.CommentEntity;
 import com.blog.enums.BusinessErrorCodes;
 import com.blog.exception.BusinessException;
@@ -16,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -40,15 +44,22 @@ public class CommentServiceImpl implements CommentService {
     /**
      * 用户评论新增
      *
-     * @param param 根据需要进行传值
+     * @param commentVO 根据需要进行传值
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void add(CommentEntity param) {
-        if (commentMapper.insert(param) == 0) {
-            throw new BusinessException(BusinessErrorCodes.INSERT_FAILED);
-        }
+    public void saveComment(CommentDTO commentDTO) {
+
+        CommentEntity comment =CommentEntity.builder()
+                .articleId(commentDTO.getArticleId())
+                .userId(commentDTO.getUserId())
+                .content(commentDTO.getContent())
+                .pid(commentDTO.getPid())
+                .createTime(LocalDateTime.now())
+                .build();
+        commentMapper.insert(comment);
     }
+
 
     /**
      * 用户评论修改
@@ -130,9 +141,11 @@ public class CommentServiceImpl implements CommentService {
      * @return 评论信息分页
      */
     @Override
-    public PageInfo<CommentVO> page(CommentEntity param) {
+    public PageInfo<CommentVO> page(CommentDTO param) {
+        //DTO转实体类
+        CommentEntity comment = ConvertUtils.convert(param,CommentEntity.class);
         // 根据文章id分页查询所有父评论
-        QueryWrapper<CommentEntity> queryWrapper = this.getConditionsByEntity(param);
+        QueryWrapper<CommentEntity> queryWrapper = this.getConditionsByEntity(comment);
         queryWrapper.lambda().isNull(CommentEntity::getPid);
         Page<CommentEntity> page = new Page<>(param.getPageNum(), param.getPageSize());
         Page<CommentEntity> commentEntityPage = commentMapper.selectPage(page, queryWrapper);
@@ -194,5 +207,6 @@ public class CommentServiceImpl implements CommentService {
         ;
         return queryWrapper;
     }
+
 
 }

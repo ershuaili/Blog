@@ -24,7 +24,7 @@ public class GlobalExceptionHandler implements ResponseBodyAdvice<Object> {
     public Object beforeBodyWrite(Object body, @NotNull MethodParameter returnType, @NotNull MediaType mediaType, @NotNull Class selectedConverterType, ServerHttpRequest request, @NotNull ServerHttpResponse response) {
         if (request.getURI().getRawPath().contains("swagger") || request.getURI().getRawPath().contains("api-docs")) {
             return body;
-        } else if (body instanceof ExceptionResult) {
+        } else if (body instanceof Result) {
             return body;
         } else {
             return new SuccessResult<>(BusinessErrorCodes.SUCCESS.getCode(), BusinessErrorCodes.SUCCESS.getMessage(), body);
@@ -37,8 +37,8 @@ public class GlobalExceptionHandler implements ResponseBodyAdvice<Object> {
      * @return 系统错误
      */
     @ExceptionHandler(value = Exception.class)
-    public ExceptionResult<Object> exceptionHandler() {
-        return new ExceptionResult<>(BusinessErrorCodes.ERROR.getCode(), BusinessErrorCodes.ERROR.getMessage());
+    public Result<Object> exceptionHandler() {
+        return new Result<>(BusinessErrorCodes.ERROR.getCode(), BusinessErrorCodes.ERROR.getMessage());
     }
 
     /**
@@ -48,7 +48,7 @@ public class GlobalExceptionHandler implements ResponseBodyAdvice<Object> {
      * @return 错误信息
      */
     @ExceptionHandler(value = BusinessException.class)
-    public ExceptionResult<Object> bizExceptionHandler(BusinessException e) {
-        return new ExceptionResult<>(e.getErrorCode(), e.getMessage());
+    public Result<Object> bizExceptionHandler(BusinessException e) {
+        return new Result<>(e.getErrorCode(), e.getMessage());
     }
 }

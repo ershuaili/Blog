@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.net.UnknownHostException;
 
 /**
  * <p>
@@ -33,7 +34,7 @@ public class UserController {
      */
     @PostMapping("/register")
     @ApiOperation(value = "用户注册")
-    public void register(HttpServletRequest request, UserDTO user) {
+    public void register(HttpServletRequest request, UserDTO user) throws UnknownHostException {
         userService.register(request, user);
     }
 

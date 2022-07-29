@@ -3,14 +3,15 @@ package com.blog.utils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
+import java.net.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Enumeration;
 
 /**
  * <p>
@@ -160,4 +161,158 @@ public class IpUtil {
         }
 
     }
+
+    /**
+     * 本地跑可获取正确IP，在虚拟机中获取不到ip
+     * @return
+     */
+    public static String getRealIP() {
+        try {
+            Enumeration<NetworkInterface> allNetInterfaces = NetworkInterface
+                    .getNetworkInterfaces();
+            while (allNetInterfaces.hasMoreElements()) {
+                NetworkInterface netInterface = (NetworkInterface) allNetInterfaces
+                        .nextElement();
+
+                // 去除回环接口，子接口，未运行和接口
+                if (netInterface.isLoopback() || netInterface.isVirtual()
+                        || !netInterface.isUp()) {
+                    continue;
+                }
+
+                if (!netInterface.getDisplayName().contains("Intel")
+                        && !netInterface.getDisplayName().contains("Realtek")) {
+                    continue;
+                }
+                Enumeration<InetAddress> addresses = netInterface
+                        .getInetAddresses();
+                System.out.println(netInterface.getDisplayName());
+                while (addresses.hasMoreElements()) {
+                    InetAddress ip = addresses.nextElement();
+                    if (ip != null) {
+                        // ipv4
+                        if (ip instanceof Inet4Address) {
+                            System.out.println("ipv4 = " + ip.getHostAddress());
+                            return ip.getHostAddress();
+                        }
+                    }
+                }
+                break;
+            }
+        } catch (SocketException e) {
+            System.err.println("Error when getting host ip address"
+                    + e.getMessage());
+        }
+        return null;
+    }
+
+    /**
+     * 本地跑获取到的是以太网适配器 VMware Network Adapter VMnet1的IP
+     * 虚拟机跑获取到的是虚拟机的ip
+     * 正确的IP拿法，即优先拿site-local地址
+     * @return
+     * @throws UnknownHostException
+     */
+    public static InetAddress getLocalHostLANAddress() throws UnknownHostException {
+        try {
+            InetAddress candidateAddress = null;
+            // 遍历所有的网络接口
+            for (Enumeration ifaces = NetworkInterface.getNetworkInterfaces(); ifaces.hasMoreElements();) {
+                NetworkInterface iface = (NetworkInterface) ifaces.nextElement();
+                // 在所有的接口下再遍历IP
+                for (Enumeration inetAddrs = iface.getInetAddresses(); inetAddrs.hasMoreElements();) {
+                    InetAddress inetAddr = (InetAddress) inetAddrs.nextElement();
+                    if (!inetAddr.isLoopbackAddress()) {// 排除loopback类型地址
+                        if (inetAddr.isSiteLocalAddress()) {
+                            // 如果是site-local地址，就是它了
+                            return inetAddr;
+                        } else if (candidateAddress == null) {
+                            // site-local类型的地址未被发现，先记录候选地址
+                            candidateAddress = inetAddr;
+                        }
+                    }
+                }
+            }
+            if (candidateAddress != null) {
+                return candidateAddress;
+            }
+            // 如果没有发现 non-loopback地址.只能用最次选的方案
+            InetAddress jdkSuppliedAddress = InetAddress.getLocalHost();
+            if (jdkSuppliedAddress == null) {
+                throw new UnknownHostException("The JDK InetAddress.getLocalHost() method unexpectedly returned null.");
+            }
+            return jdkSuppliedAddress;
+        } catch (Exception e) {
+            UnknownHostException unknownHostException = new UnknownHostException(
+                    "Failed to determine LAN address: " + e);
+            unknownHostException.initCause(e);
+            throw unknownHostException;
+        }
+    }
+
+    /**
+     * 本地获取到0.0.0.0.0.1，虚拟中获取到以太网适配器 VMware Network Adapter VMnet8
+     * @param request
+     * @return
+     */
+    public static String getClientIpAddress1(HttpServletRequest request){
+
+        String ip = request.getHeader("X-Real-IP");
+        if (!StringUtils.isBlank(ip) && !"unknown".equalsIgnoreCase(ip)) {
+            return ip;
+        }
+        ip = request.getHeader("X-Forwarded-For");
+        if (!StringUtils.isBlank(ip) && !"unknown".equalsIgnoreCase(ip)) {
+            // 多次反向代理后会有多个IP值，第一个为真实IP。
+            int index = ip.indexOf(',');
+            if (index != -1) {
+                return ip.substring(0, index);
+            } else {
+                return ip;
+            }
+        } else {
+            return request.getRemoteAddr();
+        }
+    }
+
+    public static final String DEFAULT_IP = "127.0.0.1";
+
+    /**
+     * 直接根据第一个网卡地址作为其内网ipv4地址，避免返回 127.0.0.1
+     * 本地获取到的是 以太网适配器 VMware Network Adapter VMnet1:
+     * 虚拟机中获取到的是虚拟机的地址
+     * @return 下
+     */
+    public static String getLocalIpByNetcard() {
+        try {
+            for (Enumeration<NetworkInterface> e = NetworkInterface.getNetworkInterfaces(); e.hasMoreElements(); ) {
+                NetworkInterface item = e.nextElement();
+                for (InterfaceAddress address : item.getInterfaceAddresses()) {
+                    if (item.isLoopback() || !item.isUp()) {
+                        continue;
+                    }
+                    if (address.getAddress() instanceof Inet4Address) {
+                        Inet4Address inet4Address = (Inet4Address) address.getAddress();
+                        return inet4Address.getHostAddress();
+                    }
+                }
+            }
+            return InetAddress.getLocalHost().getHostAddress();
+        } catch (SocketException | UnknownHostException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 本地没有问题获取到ip地址，虚拟机中获取的是127.0.0.1
+     * @return
+     */
+    public static String getLocalIP() {
+        try {
+            return InetAddress.getLocalHost().getHostAddress();
+        } catch (UnknownHostException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

@@ -1,8 +1,6 @@
 package com.blog.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.blog.dto.CommentDTO;
@@ -44,13 +42,13 @@ public class CommentServiceImpl implements CommentService {
     /**
      * 用户评论新增
      *
-     * @param commentVO 根据需要进行传值
+     * @param commentDTO 根据需要进行传值
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void saveComment(CommentDTO commentDTO) {
 
-        CommentEntity comment =CommentEntity.builder()
+        CommentEntity comment = CommentEntity.builder()
                 .articleId(commentDTO.getArticleId())
                 .userId(commentDTO.getUserId())
                 .content(commentDTO.getContent())
@@ -143,7 +141,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public PageInfo<CommentVO> page(CommentDTO param) {
         //DTO转实体类
-        CommentEntity comment = ConvertUtils.convert(param,CommentEntity.class);
+        CommentEntity comment = ConvertUtils.convert(param, CommentEntity.class);
         // 根据文章id分页查询所有父评论
         QueryWrapper<CommentEntity> queryWrapper = this.getConditionsByEntity(comment);
         queryWrapper.lambda().isNull(CommentEntity::getPid);
@@ -153,7 +151,7 @@ public class CommentServiceImpl implements CommentService {
         List<CommentEntity> commentEntityList = commentEntityPage.getRecords();
         List<Long> parentIds = commentEntityList.stream().map(CommentEntity::getId).collect(Collectors.toList());
         QueryWrapper<CommentEntity> wrapper = new QueryWrapper<>();
-        wrapper.lambda().in(CommentEntity::getId, parentIds);
+        wrapper.lambda().in(parentIds.size() != 0, CommentEntity::getId, parentIds);
         List<CommentEntity> childEntityList = commentMapper.selectList(wrapper);
         Map<Long, List<CommentEntity>> childMap =
                 childEntityList.stream().collect(Collectors.groupingBy(CommentEntity::getPid));

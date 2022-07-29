@@ -1,10 +1,7 @@
 package com.blog.dto;
 
-import com.blog.entity.PageBaseEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.blog.entity.BaseEntity;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -17,9 +14,10 @@ import java.time.LocalDateTime;
  */
 @Data
 @Builder
+@EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommentDTO extends PageBaseEntity {
+public class CommentDTO extends BaseEntity {
 
     /**
      * 评论id
